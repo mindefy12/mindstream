@@ -1,0 +1,349 @@
+/* Admin Panel Styles */
+
+.admin-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--space-lg) var(--space-md);
+    min-height: 80vh;
+}
+
+.admin-card {
+    background: var(--soft-white);
+    border-radius: 12px;
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border: 1px solid rgba(122, 155, 118, 0.15);
+}
+
+.admin-header {
+    text-align: center;
+    margin-bottom: var(--space-md);
+}
+
+.admin-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: var(--deep-shadow);
+}
+
+.admin-header p {
+    color: var(--stone-gray);
+    font-size: 1.1rem;
+}
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: var(--space-md);
+}
+
+.dashboard-header h1 {
+    font-size: 2.5rem;
+    color: var(--grove-green);
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+    font-size: 1.1rem;
+    color: var(--stone-gray);
+}
+
+.card-title {
+    font-size: 1.5rem;
+    color: var(--grove-green);
+    margin-bottom: var(--space-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Forms */
+.admin-form,
+.reflection-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--deep-shadow);
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    padding: 0.75rem;
+    border: 2px solid rgba(122, 155, 118, 0.2);
+    border-radius: 8px;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--grove-green);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+    line-height: 1.6;
+}
+
+.char-count {
+    text-align: right;
+    font-size: 0.85rem;
+    color: var(--stone-gray);
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--grove-green), #6a8a66);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(122, 155, 118, 0.3);
+}
+
+.btn-secondary {
+    background: var(--parchment-cream);
+    color: var(--deep-shadow);
+    border: 2px solid rgba(122, 155, 118, 0.2);
+}
+
+.btn-secondary:hover {
+    background: var(--soft-white);
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+}
+
+.form-actions {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+}
+
+.logout-btn {
+    background: var(--lantern-amber);
+    color: var(--deep-shadow);
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: #f0a63c;
+}
+
+/* Error Messages */
+.error-message {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+.error-message.show {
+    display: block;
+}
+
+/* Reflections List */
+.reflections-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.reflection-item {
+    background: white;
+    border: 2px solid rgba(122, 155, 118, 0.15);
+    border-radius: 8px;
+    padding: var(--space-sm);
+    transition: border-color 0.3s ease;
+}
+
+.reflection-item:hover {
+    border-color: var(--grove-green);
+}
+
+.reflection-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.reflection-meta {
+    flex: 1;
+}
+
+.reflection-title {
+    font-size: 1.2rem;
+    color: var(--deep-shadow);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.reflection-info {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.85rem;
+    color: var(--stone-gray);
+    flex-wrap: wrap;
+}
+
+.reflection-type {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.reflection-type.current {
+    background: rgba(122, 155, 118, 0.2);
+    color: var(--grove-green);
+}
+
+.reflection-type.fieldnote {
+    background: rgba(255, 180, 70, 0.2);
+    color: #d68a3d;
+}
+
+.reflection-content {
+    color: var(--deep-shadow);
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+}
+
+.reflection-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.btn-edit,
+.btn-delete {
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+}
+
+.btn-edit {
+    background: var(--parchment-cream);
+    color: var(--deep-shadow);
+}
+
+.btn-edit:hover {
+    background: #e5d9c0;
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+}
+
+/* Loading State */
+.loading {
+    text-align: center;
+    padding: var(--space-md);
+    color: var(--stone-gray);
+    font-style: italic;
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--deep-shadow);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transform: translateY(200%);
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    max-width: 300px;
+}
+
+.toast.show {
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-container {
+        padding: var(--space-sm);
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+    }
+    
+    .reflection-header {
+        flex-direction: column;
+    }
+    
+    .reflection-actions {
+        width: 100%;
+    }
+    
+    .btn-edit,
+    .btn-delete {
+        flex: 1;
+    }
+}

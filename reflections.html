@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflections | Mindstream</title>
+    <meta name="description" content="A living space for Currents and Field Notes — gentle insights and notes from the stream.">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">Mindstream</div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="reflections.html" class="active">Reflections</a>
+                <a href="rituals.html">Rituals</a>
+                <a href="guides.html">Guides</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="reflections-hero">
+        <div class="container">
+            <h1 class="reflections-hero-title">Reflections</h1>
+            <p class="reflections-hero-subtitle">
+                A living space for Currents and Field Notes — gentle insights and notes from the stream.
+            </p>
+        </div>
+    </section>
+
+    <!-- Reflections Content -->
+    <section class="section reflections-section">
+        <div class="container">
+            <div class="reflections-content">
+                
+                <div class="reflections-intro">
+                    <p>This is a calm, living record of what is being noticed, explored, and created.</p>
+                    <p>Spacious. Gentle. Mythic-modern.</p>
+                </div>
+
+                <!-- Currents -->
+                <div class="reflection-category">
+                    <h2 class="category-title">Currents</h2>
+                    <p class="category-description">Short, evergreen reflective pieces. 1–3 paragraphs on presence, clarity, and what matters.</p>
+                    
+                    <div id="currentsGrid" class="reflection-grid">
+                        <div class="loading">Loading currents...</div>
+                    </div>
+                </div>
+
+                <!-- Field Notes -->
+                <div class="reflection-category">
+                    <h2 class="category-title">Field Notes</h2>
+                    <p class="category-description">Behind-the-scenes updates, process notes, and personal reflections on building Mindstream.</p>
+                    
+                    <div id="fieldnotesGrid" class="reflection-grid">
+                        <div class="loading">Loading field notes...</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-philosophy">Presence over urgency. Clarity over noise. Moderation as a radical act.</p>
+            <nav class="footer-nav">
+                <a href="index.html">Home</a>
+                <span>•</span>
+                <a href="reflections.html">Reflections</a>
+                <span>•</span>
+                <a href="rituals.html">Rituals</a>
+                <span>•</span>
+                <a href="guides.html">Guides</a>
+                <span>•</span>
+                <a href="mailto:hello@mindefy.online">Contact</a>
+            </nav>
+            <p class="footer-copyright">© 2025 Mindstream. A commons, tended by all who practice.</p>
+            <div class="footer-lantern">🕯️</div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script type="module" src="reflections-firebase.js"></script>
+    <script src="nav-mobile.js"></script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+/* Special Lantern Grove Invitation */
+.lantern-grove-invitation {
+    padding: var(--space-lg) 0;
+    background: linear-gradient(to bottom, var(--soft-white), var(--parchment-cream));
+    text-align: center;
+}
+
+.grove-special-button {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2rem 4rem;
+    background: linear-gradient(135deg, var(--lantern-amber), #f0a63c);
+    border-radius: 20px;
+    text-decoration: none;
+    box-shadow: 
+        0 8px 32px rgba(255, 180, 70, 0.4),
+        0 0 60px rgba(255, 180, 70, 0.3);
+    transition: all 0.5s ease;
+    animation: gentlePulse 4s ease-in-out infinite;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.grove-special-button:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 
+        0 16px 48px rgba(255, 180, 70, 0.6),
+        0 0 80px rgba(255, 180, 70, 0.5);
+}
+
+.grove-special-icon {
+    font-size: 3rem;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    animation: lanternSway 3s ease-in-out infinite;
+}
+
+.grove-special-text {
+    font-family: 'Crimson Text', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--deep-shadow);
+    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.02em;
+}
+
+.grove-special-hover {
+    font-family: 'Lato', sans-serif;
+    font-size: 0.95rem;
+    color: var(--deep-shadow);
+    font-style: italic;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    letter-spacing: 0.05em;
+}
+
+.grove-special-button:hover .grove-special-hover {
+    opacity: 0.85;
+    max-height: 30px;
+    margin-top: 0.5rem;
+}
+
+/* Animations */
+@keyframes gentlePulse {
+    0%, 100% {
+        box-shadow: 
+            0 8px 32px rgba(255, 180, 70, 0.4),
+            0 0 60px rgba(255, 180, 70, 0.3);
+    }
+    50% {
+        box-shadow: 
+            0 8px 32px rgba(255, 180, 70, 0.5),
+            0 0 80px rgba(255, 180, 70, 0.4);
+    }
+}
+
+@keyframes lanternSway {
+    0%, 100% {
+        transform: rotate(-2deg);
+    }
+    50% {
+        transform: rotate(2deg);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .grove-special-button {
+        padding: 1.5rem 2.5rem;
+    }
+    
+    .grove-special-icon {
+        font-size: 2.5rem;
+    }
+    
+    .grove-special-text {
+        font-size: 1.5rem;
+    }
+    
+    .grove-special-hover {
+        font-size: 0.85rem;
+    }
+}
+
+/* Better mobile spacing for grove button */
+@media (max-width: 480px) {
+    .lantern-grove-invitation {
+        padding: var(--space-md) var(--space-sm);
+    }
+    
+    .grove-special-button {
+        padding: 1.25rem 2rem;
+    }
+    
+    .grove-special-icon {
+        font-size: 2rem;
+    }
+    
+    .grove-special-text {
+        font-size: 1.25rem;
+    }
+}

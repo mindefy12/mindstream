@@ -1,0 +1,8 @@
+{
+  "name": "mindstream-mirror-functions",
+  "version": "1.0.0",
+  "description": "Netlify Functions for Mindstream Mirror of Metaphor",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.0"
+  }
+}

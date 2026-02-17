@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Compass | Mindstream</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .quiz-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md);
+            min-height: 80vh;
+        }
+
+        .quiz-intro {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        .quiz-intro h1 {
+            font-size: 3rem;
+            color: var(--grove-green);
+            margin-bottom: var(--space-md);
+        }
+
+        .quiz-intro p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--stone-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .question-container {
+            display: none;
+            opacity: 0;
+            animation: fadeIn 0.6s ease-in forwards;
+        }
+
+        .question-container.active {
+            display: block;
+        }
+
+        .question-number {
+            font-size: 0.9rem;
+            color: var(--lantern-amber);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: var(--space-sm);
+        }
+
+        .question h2 {
+            font-size: 2rem;
+            color: var(--grove-green);
+            margin-bottom: var(--space-lg);
+            line-height: 1.4;
+        }
+
+        .answers {
+            display: grid;
+            gap: var(--space-md);
+        }
+
+        .answer-btn {
+            background: var(--soft-white);
+            border: 2px solid var(--parchment-cream);
+            padding: var(--space-md) var(--space-lg);
+            border-radius: 12px;
+            font-size: 1.1rem;
+            color: var(--stone-gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .answer-btn:hover {
+            border-color: var(--grove-green);
+            background: rgba(122, 155, 118, 0.05);
+            transform: translateX(8px);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--parchment-cream);
+            border-radius: 2px;
+            margin-bottom: var(--space-xl);
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--grove-green), var(--lantern-amber));
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        .results-container {
+            display: none;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        .results-container.active {
+            display: block;
+        }
+
+        .result-image {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto var(--space-lg);
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(122, 155, 118, 0.3);
+        }
+
+        .result-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .result-direction {
+            font-size: 3rem;
+            color: var(--grove-green);
+            margin-bottom: var(--space-sm);
+        }
+
+        .result-title {
+            font-size: 1.8rem;
+            color: var(--lantern-amber);
+            font-style: italic;
+            margin-bottom: var(--space-lg);
+        }
+
+        .result-description {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--stone-gray);
+            max-width: 650px;
+            margin: 0 auto var(--space-xl);
+        }
+
+        .result-rituals {
+            background: var(--soft-white);
+            border-left: 4px solid var(--lantern-amber);
+            padding: var(--space-lg);
+            margin: var(--space-xl) 0;
+            text-align: left;
+            border-radius: 8px;
+        }
+
+        .result-rituals h3 {
+            color: var(--grove-green);
+            margin-bottom: var(--space-md);
+        }
+
+        .result-rituals ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .result-rituals li {
+            padding: var(--space-sm) 0;
+            color: var(--stone-gray);
+        }
+
+        .result-rituals li:before {
+            content: "🕯️ ";
+            margin-right: 8px;
+        }
+
+        .result-reflection {
+            background: var(--parchment-cream);
+            padding: var(--space-lg);
+            border-radius: 8px;
+            margin: var(--space-lg) 0;
+            font-style: italic;
+        }
+
+        .result-reflection p {
+            color: var(--stone-gray);
+            line-height: 1.8;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: var(--space-xl);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--grove-green);
+            color: var(--grove-green);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: var(--grove-green);
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Nav styling */
+        .nav {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: var(--space-md) 0;
+        }
+
+        .nav-container {
+            max-width: var(--content-width);
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--grove-green);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 8px rgba(122, 155, 118, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            color: var(--lantern-amber);
+            text-shadow: 0 2px 12px rgba(255, 180, 70, 0.4);
+            transform: scale(1.02);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-md);
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--stone-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--grove-green);
+        }
+
+        .nav-links a.nav-active {
+            color: var(--lantern-amber);
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .quiz-intro h1 {
+                font-size: 2rem;
+            }
+
+            .question h2 {
+                font-size: 1.5rem;
+            }
+
+            .result-direction {
+                font-size: 2rem;
+            }
+
+            .result-image {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">Mindstream</a>
+            <div class="nav-links">
+                <a href="index.html#what">About</a>
+                <a href="index.html#ethos">Ethos</a>
+                <a href="index.html#rituals">Rituals</a>
+                <a href="compass-quiz.html" class="nav-active">Compass</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="quiz-container">
+        <!-- Intro Screen -->
+        <div class="quiz-intro" id="quizIntro">
+            <h1>🧭 Find Your Compass</h1>
+            <p>
+                In seven questions, discover the direction your attention naturally moves. 
+                There are no right answers—only reflections. Answer honestly, without urgency.
+            </p>
+            <p style="margin-top: var(--space-md); font-style: italic; color: var(--lantern-amber);">
+                Take a breath. Begin when you're ready.
+            </p>
+            <button class="cta-button" onclick="startQuiz()" style="margin-top: var(--space-lg);">
+                Begin
+            </button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar" id="progressBar" style="display: none;">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="question-container" id="q1">
+            <div class="question-number">Question 1 of 7</div>
+            <div class="question">
+                <h2>When do you feel most present?</h2>
+            </div>
+            <div class="answers">
+                <button class="answer-btn" data-direction="center" onclick="answer('center', 1)">
+                    In moments of complete stillness, when I'm simply being
+                </button>
+                <button class="answer-btn" data-direction="north" onclick="answer('north', 1)">
+                    When I have clear purpose and know where I'm headed
+                </button>
+                <button class="answer-btn" data-direction="south" onclick="answer('south', 1)">
+                    When I'm grounded in my body—walking, breathing, moving
+                </button>
+                <button class="answer-btn" data-direction="east" onclick="answer('east', 1)">
+                    In the morning, when the day is fresh and full of possibility
+                </button>
+                <button class="answer-btn" data-direction="west" onclick="answer('west', 1)">
+                    In the evening, when I can reflect on what has passed
+                </button>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="question-container" id="q2">
+            <div class="question-number">Question 2 of 7</div>
+            <div class="question">
+                <h2>What draws your attention most naturally?</h2>
+            </div>
+            <div class="answers">
+                <button class="answer-btn" data-direction="north" onclick="answer('north', 2)">
+                    Ideas, visions, and what could be
+                </button>
+                <button class="answer-btn" data-direction="south" onclick="answer('south', 2)">
+                    Sensations, textures, and what I can touch
+                </button>
+                <button class="answer-btn" data-direction="east" onclick="answer('east', 2)">
+                    Beginnings, fresh starts, and renewal
+                </button>
+                <button class="answer-btn" data-direction="west" onclick="answer('west', 2)">
+                    Endings, transitions, and letting go
+                </button>
+                <button class="answer-btn" data-direction="center" onclick="answer('center', 2)">
+                    The space between—the pause, the silence
+                </button>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div class="question-container" id="q3">
+            <div class="question-number">Question 3 of 7</div>
+            <div class="question">
+                <h2>How do you find clarity when overwhelmed?</h2>
+            </div>
+            <div class="answers">
+                <button class="answer-btn" data-direction="north" onclick="answer('north', 3)">
+                    I zoom out and look at the bigger picture
+                </button>
+                <button class="answer-btn" data-direction="south" onclick="answer('south', 3)">
+                    I ground myself in my body and surroundings
+                </button>
+                <button class="answer-btn" data-direction="east" onclick="answer('east', 3)">
+                    I focus on one small, new action I can take
+                </button>
+                <button class="answer-btn" data-direction="west" onclick="answer('west', 3)">
+                    I release what I no longer need to carry
+                </button>
+                <button class="answer-btn" data-direction="center" onclick="answer('center', 3)">
+                    I sit with the overwhelm until it settles
+                </button>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div class="question-container" id="q4">
+            <div class="question-number">Question 4 of 7</div>
+            <div class="question">
+                <h2>What does moderation look like for you?</h2>
+            </div>
+            <div class="answers">
+                <button class="answer-btn" data-direction="north" onclick="answer('north', 4)">
+                    Staying focused on what truly matters, saying no to distractions
+                </button>
+                <button class="answer-btn" data-direction="south" onclick="answer('south', 4)">
+                    Honoring my body's needs without pushing too hard
+                </button>
+                <button class="answer-btn" data-direction="east" onclick="answer('east', 4)">
+                    Approaching each day fresh, without carrying yesterday's weight
+                </button>
+                <button class="answer-btn" data-direction="west" onclick="answer('west', 4)">
+                    Knowing when to stop, complete, and move on
+                </button>
+                <button class="answer-btn" data-direction="center" onclick="answer('center', 4)">
+                    Finding the middle path between extremes
+                </button>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div class="question-container" id="q5">
+            <div class="question-number">Question 5 of 7</div>
+            <div class="question">
+                <h2>Which symbol speaks to you most?</h2>
+            </div>
+            <div class="answers">
+                <button class="answer-btn" data-direction="north" onclick="answer('north', 5)">
+                    🧭 The Compass — orientation and direction
+                </button>
+                <button class="answer-btn" data-direction="south" onclick="answer('south', 5)">
+                    🌳 The Grove — roots and sanctuary
+                </button>
+                <button class="answer-btn" data-direction="east" onclick="answer('east', 5)">
+                    🕯️ The Lantern — new light and illumination
+                </button>
+                <button class="answer-btn" data-direction="west" onclick="answer('west', 5)">
+                    📜 The Scroll — memory and preservation
+                </button>
+                <button class="answer-btn" data-direction="center" onclick="answer('center', 5)">
+                    🪨 The Stone — stillness and weight
+                </button>
+            </div>
+        </div>
+
+        <!-- Question 6 -->
+        <div class="question-container" id="q6">
+            <div class="question-number">Question 6 of 7</div>
+            <div class="question">
+                <h2>What time of day resonates with your spirit?</h2>
+            </div>
+            <div class="answers">
+                <button class="answer-btn" data-direction="north" onclick="answer('north', 6)">
+                    High noon — clarity, purpose, full light
+                </button>
+                <button class="answer-btn" data-direction="south" onclick="answer('south', 6)">
+                    Deep night — rest, restoration, dreams
+                </button>
+                <button class="answer-btn" data-direction="east" onclick="answer('east', 6)">
+                    Dawn — emergence, first light, potential
+                </button>
+                <button class="answer-btn" data-direction="west" onclick="answer('west', 6)">
+                    Dusk — reflection, softening, transition
+                </button>
+                <button class="answer-btn" data-direction="center" onclick="answer('center', 6)">
+                    The threshold hours — between day and night
+                </button>
+            </div>
+        </div>
+
+        <!-- Question 7 -->
+        <div class="question-container" id="q7">
+            <div class="question-number">Question 7 of 7</div>
+            <div class="question">
+                <h2>What do you need most right now?</h2>
+            </div>
+            <div class="answers">
+                <button class="answer-btn" data-direction="north" onclick="answer('north', 7)">
+                    Vision — to see where I'm going
+                </button>
+                <button class="answer-btn" data-direction="south" onclick="answer('south', 7)">
+                    Ground — to feel steady and held
+                </button>
+                <button class="answer-btn" data-direction="east" onclick="answer('east', 7)">
+                    Hope — to believe things can be different
+                </button>
+                <button class="answer-btn" data-direction="west" onclick="answer('west', 7)">
+                    Release — to let go of what no longer serves
+                </button>
+                <button class="answer-btn" data-direction="center" onclick="answer('center', 7)">
+                    Presence — to simply be here, now
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Container -->
+        <div class="results-container" id="results">
+            <div class="result-image" id="resultImage">
+                <!-- Image will be inserted here -->
+            </div>
+            <div class="result-direction" id="resultDirection"></div>
+            <div class="result-title" id="resultTitle"></div>
+            <div class="result-description" id="resultDescription"></div>
+            
+            <div class="result-rituals" id="resultRituals">
+                <h3>Rituals for your compass:</h3>
+                <ul id="ritualList"></ul>
+            </div>
+
+            <div class="result-reflection" id="resultReflection">
+                <p id="reflectionText"></p>
+            </div>
+
+            <div class="action-buttons">
+                <a href="ritual-generator.html" class="cta-button">Explore Rituals</a>
+                <button class="btn-secondary" onclick="restartQuiz()">Take Again</button>
+                <a href="index.html" class="btn-secondary">Return to Grove</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="compass-quiz.js"></script>
+    <script src="nav-mobile.js"></script>
+</body>
+</html>

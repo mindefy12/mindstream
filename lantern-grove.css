@@ -1,0 +1,298 @@
+/* Lantern Grove Visual Experience */
+
+.grove-container {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #2a3a2e, #1a2420);
+}
+
+/* Grove Background Image */
+.grove-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('grove-background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* Header */
+.grove-header {
+    position: relative;
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+    z-index: 10;
+}
+
+.grove-title {
+    font-family: 'Crimson Text', serif;
+    font-size: 4rem;
+    font-weight: 600;
+    color: var(--soft-white);
+    margin: 0 0 0.5rem;
+    text-shadow: 0 2px 20px rgba(255, 180, 70, 0.4);
+}
+
+.grove-subtitle {
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2rem;
+    color: var(--lantern-amber);
+    font-style: italic;
+    letter-spacing: 0.1em;
+    text-transform: lowercase;
+    margin-bottom: 1.5rem;
+}
+
+/* CTA Button */
+.grove-cta {
+    position: relative;
+    text-align: center;
+    padding: 0;
+    z-index: 10;
+}
+
+.grove-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: linear-gradient(135deg, var(--lantern-amber), #f0a63c);
+    color: var(--deep-shadow);
+    font-family: 'Lato', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(255, 180, 70, 0.4);
+    transition: all 0.3s ease;
+}
+
+.grove-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 30px rgba(255, 180, 70, 0.6);
+}
+
+/* Lanterns Container */
+.grove-lanterns {
+    position: relative;
+    width: 100%;
+    min-height: 60vh;
+    padding: 2rem;
+    z-index: 5;
+}
+
+/* Individual Visual Lantern */
+.visual-lantern {
+    position: absolute;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: floatLantern 6s ease-in-out infinite;
+}
+
+.visual-lantern:hover {
+    transform: scale(1.1);
+    z-index: 100;
+}
+
+/* Lantern Icon */
+.lantern-icon {
+    font-size: 3rem;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+}
+
+/* Lantern Colors - Using CSS filters for colored glow */
+.lantern-amber .lantern-icon {
+    filter: 
+        drop-shadow(0 0 15px rgba(255, 180, 70, 0.9))
+        drop-shadow(0 0 25px rgba(255, 180, 70, 0.6))
+        brightness(1.1)
+        saturate(1.3);
+}
+
+.lantern-silver .lantern-icon {
+    filter: 
+        drop-shadow(0 0 15px rgba(207, 216, 227, 0.9))
+        drop-shadow(0 0 25px rgba(207, 216, 227, 0.6))
+        brightness(1.3)
+        hue-rotate(200deg);
+}
+
+.lantern-verdant .lantern-icon {
+    filter: 
+        drop-shadow(0 0 15px rgba(127, 209, 166, 0.9))
+        drop-shadow(0 0 25px rgba(127, 209, 166, 0.6))
+        brightness(1.1)
+        hue-rotate(90deg);
+}
+
+.lantern-rose .lantern-icon {
+    filter: 
+        drop-shadow(0 0 15px rgba(255, 143, 179, 0.9))
+        drop-shadow(0 0 25px rgba(255, 143, 179, 0.6))
+        brightness(1.2)
+        hue-rotate(330deg);
+}
+
+.lantern-azure .lantern-icon {
+    filter: 
+        drop-shadow(0 0 15px rgba(137, 196, 255, 0.9))
+        drop-shadow(0 0 25px rgba(137, 196, 255, 0.6))
+        brightness(1.2)
+        hue-rotate(210deg);
+}
+
+.lantern-twilight .lantern-icon {
+    filter: 
+        drop-shadow(0 0 15px rgba(166, 143, 219, 0.9))
+        drop-shadow(0 0 25px rgba(166, 143, 219, 0.6))
+        brightness(1.1)
+        hue-rotate(270deg);
+}
+
+/* Lantern Tooltip */
+.lantern-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(26, 36, 32, 0.95);
+    color: var(--soft-white);
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--lantern-amber);
+    min-width: 250px;
+    max-width: 350px;
+    margin-bottom: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.visual-lantern:hover .lantern-tooltip {
+    opacity: 1;
+}
+
+/* Mobile: Show tooltip on tap/click */
+.visual-lantern.show-tooltip .lantern-tooltip {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.tooltip-type {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--lantern-amber);
+    margin-bottom: 0.5rem;
+}
+
+.tooltip-date {
+    font-size: 0.8rem;
+    color: var(--stone-gray);
+    margin-bottom: 0.75rem;
+}
+
+.tooltip-message {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--parchment-cream);
+}
+
+.tooltip-hidden {
+    font-style: italic;
+    color: var(--stone-gray);
+}
+
+/* Empty State */
+.grove-empty {
+    position: relative;
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--parchment-cream);
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+/* Animations */
+@keyframes floatLantern {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .grove-header {
+        padding: 3rem 1.5rem 2rem;
+    }
+    
+    .grove-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .grove-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .grove-button {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.95rem;
+    }
+    
+    .lantern-icon {
+        font-size: 2.5rem;
+    }
+    
+    .lantern-tooltip {
+        min-width: 200px;
+        max-width: 280px;
+        font-size: 0.9rem;
+        padding: 0.75rem 1rem;
+        /* Position above on mobile */
+        bottom: 120%;
+    }
+    
+    /* Ensure tooltips don't go off screen */
+    .visual-lantern {
+        margin: 1rem;
+    }
+    
+    /* Make lanterns easier to tap */
+    .lantern-icon {
+        padding: 0.5rem;
+    }
+}
+
+/* Draggable indicator on mobile */
+@media (max-width: 768px) {
+    .visual-lantern {
+        cursor: grab;
+    }
+    
+    .visual-lantern:active {
+        cursor: grabbing;
+        transform: scale(1.1);
+    }
+}

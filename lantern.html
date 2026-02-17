@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lantern of Intention | Mindstream</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="lantern.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-container">
+      <div class="nav-logo">Mindstream</div>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="compass-quiz.html">Compass</a>
+        <a href="lantern.html" class="active">Lantern</a>
+        <a href="lanterns.html">Grove</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <div class="quiz-container lantern-page">
+      <header class="lantern-header">
+        <div class="lantern-eyebrow">Mindstream Ritual</div>
+        <h1 class="lantern-title">Lantern of Intention</h1>
+        <p class="lantern-subtitle">
+          A quiet ritual for releasing what you're holding — and letting the grove hold it with you.
+        </p>
+        <div class="lantern-accent-line"></div>
+      </header>
+
+      <!-- Video Section -->
+      <section class="lantern-video-section">
+        <div class="lantern-video-container">
+          <video class="lantern-video" autoplay loop muted playsinline>
+            <source src="lantern-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <p class="lantern-video-caption">A moment of reflection before you begin.</p>
+      </section>
+
+      <section class="lantern-layout">
+        <!-- Left: Form -->
+        <div class="lantern-card lantern-form-card">
+          <h2 class="lantern-card-title">Place your intention</h2>
+          <p class="lantern-card-body">
+            Type freely. This is a small, private grove. If you choose, your lantern can glow on the shared lantern page.
+          </p>
+
+          <label class="lantern-field-label" for="intention">
+            Your words
+          </label>
+          <textarea
+            id="intention"
+            class="lantern-textarea"
+            placeholder="What would you like to place in the lantern?"
+          ></textarea>
+
+          <div class="lantern-field-label">Choose your lantern</div>
+          <div class="lantern-options" id="lanternOptions">
+            <button class="lantern-option selected" data-type="amber" type="button">
+              <span class="lantern-option-icon lantern-option-amber"></span>
+              <span>Amber</span>
+            </button>
+            <button class="lantern-option" data-type="silver" type="button">
+              <span class="lantern-option-icon lantern-option-silver"></span>
+              <span>Silver</span>
+            </button>
+            <button class="lantern-option" data-type="verdant" type="button">
+              <span class="lantern-option-icon lantern-option-verdant"></span>
+              <span>Verdant</span>
+            </button>
+            <button class="lantern-option" data-type="rose" type="button">
+              <span class="lantern-option-icon lantern-option-rose"></span>
+              <span>Rose</span>
+            </button>
+            <button class="lantern-option" data-type="azure" type="button">
+              <span class="lantern-option-icon lantern-option-azure"></span>
+              <span>Azure</span>
+            </button>
+            <button class="lantern-option" data-type="twilight" type="button">
+              <span class="lantern-option-icon lantern-option-twilight"></span>
+              <span>Twilight</span>
+            </button>
+          </div>
+
+          <div class="lantern-privacy-control">
+            <div class="lantern-field-label">Message visibility</div>
+            <div class="lantern-toggle-row">
+              <span class="lantern-toggle-label">Message is visible to others</span>
+              <label class="lantern-switch">
+                <input type="checkbox" id="hideToggle" />
+                <span class="lantern-slider"></span>
+              </label>
+              <span class="lantern-toggle-label-alt">Hide my message</span>
+            </div>
+            <p class="lantern-privacy-hint">Your lantern will always appear in the grove. This toggle only controls whether others can read your message.</p>
+          </div>
+
+          <div class="lantern-actions">
+            <div class="lantern-hint">
+              For now, your words are stored only in this browser.
+            </div>
+            <button class="lantern-primary-button" id="releaseButton" type="button">
+              <span>Release the Lantern</span>
+              <span>✨</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Visual -->
+        <div class="lantern-card lantern-visual-card">
+          <h2 class="lantern-card-title">Lantern preview</h2>
+          <p class="lantern-card-body">
+            As you release your intention, it is wrapped in parchment and placed inside a lantern in the grove.
+          </p>
+
+          <div class="lantern-scene">
+            <div class="lantern-visual">
+              <div class="lantern-visual-inner">
+                <div class="lantern-handle"></div>
+                <div class="lantern-body">
+                  <div class="lantern-glow-layer"></div>
+                  <div class="lantern-inner">
+                    <div class="lantern-parchment-wrap" id="parchmentWrap">
+                      <div class="lantern-parchment" id="parchment">
+                        <div class="lantern-parchment-inner" id="parchmentPreview">
+                          A quiet place<br />for what you're holding.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="lantern-caption">
+                  <div class="lantern-type-label">
+                    Current lantern: <span id="lanternTypeLabel">Amber Lantern</span>
+                  </div>
+                  <div class="lantern-caption-text">
+                    When you're ready, release the lantern. You can visit it later in the Lantern Grove.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="lantern-pill-nav">
+              <a href="lanterns.html" class="lantern-pill-link">
+                Visit the Lantern Grove
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-philosophy">Presence over urgency. Clarity over noise. Moderation as a radical act.</p>
+      <p class="footer-copyright">© 2025 Mindstream. A commons, tended by all who practice.</p>
+      <div class="footer-lantern">🕯️</div>
+    </div>
+  </footer>
+
+  <div class="lantern-toast" id="toast">
+    <div class="lantern-toast-dot"></div>
+    <div id="toastText">Lantern released into the grove.</div>
+  </div>
+
+  <script type="module" src="lantern-firebase.js"></script>
+    <script src="nav-mobile.js"></script>
+</body>
+</html>
