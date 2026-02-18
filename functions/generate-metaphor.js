@@ -88,7 +88,7 @@ AVOID: jokes, sarcasm, literal descriptions, therapy language, self-help cliché
 
     // Call Claude API
     const message = await anthropic.messages.create({
-      model: 'claude-3-5-haiku-20241022', // Fast and affordable
+      model: 'claude-3-5-sonnet-20241022', // Fast and affordable
       max_tokens: 150, // Metaphors are short
       temperature: 0.9, // High creativity for poetic output
       system: systemPrompt,
