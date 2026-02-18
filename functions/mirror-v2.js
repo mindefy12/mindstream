@@ -40,8 +40,9 @@ exports.handler = async (event, context) => {
 
     const systemPrompt = `You are a poetic metaphor generator. Transform the user's emotional state into a single, beautiful metaphor (under 40 words). Use natural imagery: weather, water, light, landscapes, seasons. Be gentle, contemplative, and symbolic. Never be literal or use therapy language.`;
 
+    // Use Claude 3 Haiku - fast, reliable, and definitely available
     const message = await anthropic.messages.create({
-      model: 'claude-sonnet-4-6',
+      model: 'claude-3-haiku-20240307',
       max_tokens: 150,
       temperature: 0.9,
       system: systemPrompt,
