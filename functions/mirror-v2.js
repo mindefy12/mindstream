@@ -41,8 +41,7 @@ exports.handler = async (event, context) => {
     const systemPrompt = `You are a poetic metaphor generator. Transform the user's emotional state into a single, beautiful metaphor (under 40 words). Use natural imagery: weather, water, light, landscapes, seasons. Be gentle, contemplative, and symbolic. Never be literal or use therapy language.`;
 
     const message = await anthropic.messages.create({
-      model: model: 'claude-3-5-sonnet-20241022',
-,
+      model: 'claude-3-5-sonnet-20241022',
       max_tokens: 150,
       temperature: 0.9,
       system: systemPrompt,
