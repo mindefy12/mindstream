@@ -2008,4 +2008,145 @@ a:hover {
         right: 0;
     }
 }
+/* === MOBILE NAVIGATION MENU === */
+@media (max-width: 768px) {
+    /* Hamburger menu button */
+    .nav-toggle {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        z-index: 1001;
+    }
+    
+    .nav-toggle span {
+        display: block;
+        width: 25px;
+        height: 3px;
+        background-color: var(--grove-green);
+        border-radius: 3px;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-toggle.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+    
+    .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .nav-toggle.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+    }
+    
+    /* Mobile menu dropdown */
+    .nav-links {
+        position: fixed;
+        top: 68px;
+        left: 0;
+        right: 0;
+        background: rgba(250, 250, 248, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem 0;
+        gap: 1.5rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        border-bottom: 1px solid rgba(122, 155, 118, 0.2);
+    }
+    
+    .nav-links.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    /* FIX: Make dropdown menu items LIGHTER (was too dark) */
+    .nav-links a {
+        font-size: 1.2rem;
+        color: var(--grove-green) !important; /* Changed from var(--stone-gray) which was too dark */
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+    }
+    
+    .nav-links a:hover {
+        color: var(--lantern-amber) !important;
+    }
+    
+    .nav-links a.active {
+        color: var(--lantern-amber) !important; /* Highlight active page */
+        font-weight: 600;
+    }
+}
 
+/* === HERO SECTIONS - FIX TITLE OVERLAP === */
+.hero {
+    margin-top: 80px;
+    padding-top: var(--space-lg);
+}
+
+.reflections-hero {
+    padding-top: calc(var(--space-xl) + 80px);
+    margin-top: 0;
+}
+
+.rituals-hero {
+    padding-top: calc(var(--space-xl) + 80px);
+    margin-top: 0;
+}
+
+.guides-hero {
+    padding-top: calc(var(--space-xl) + 80px);
+    margin-top: 0;
+}
+
+/* === MOBILE SPECIFIC ADJUSTMENTS === */
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: flex;
+    }
+    
+    .hero {
+        margin-top: 68px;
+        padding-top: 2rem;
+        min-height: 80vh;
+    }
+    
+    .reflections-hero,
+    .rituals-hero,
+    .guides-hero {
+        padding-top: calc(var(--space-lg) + 68px);
+    }
+    
+    .reflections-hero-title,
+    .rituals-hero-title,
+    .guides-hero-title {
+        margin-top: 1rem;
+    }
+}
+
+/* === DESKTOP - HIDE HAMBURGER === */
+@media (min-width: 769px) {
+    .nav-toggle {
+        display: none;
+    }
+    
+    .nav-links {
+        position: static;
+        flex-direction: row;
+        transform: none;
+        opacity: 1;
+        visibility: visible;
+        background: none;
+        padding: 0;
+        box-shadow: none;
+    }
+}
