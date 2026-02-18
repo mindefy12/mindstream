@@ -373,7 +373,7 @@
 
     async function callMetaphorEngine(userReflection) {
       // Call your Netlify Function
-      const response = await fetch("/.netlify/functions/generate-metaphor", {
+      const response = await fetch("/.netlify/functions/mirror-metaphor", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -384,7 +384,7 @@
       });
 
       if (!response.ok) {
-        throw new Error("Failed to generate metaphor");
+        throw new Error("Failed to mirror metaphor");
       }
 
       const data = await response.json();
