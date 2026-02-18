@@ -31,6 +31,8 @@ async function loadReflections() {
         
         querySnapshot.forEach((doc) => {
             const data = doc.data();
+            data.id = doc.id; // Store document ID for unique frame IDs
+            
             if (data.type === 'current') {
                 currents.push(data);
             } else if (data.type === 'fieldnote') {
@@ -95,17 +97,56 @@ function createReflectionCard(data) {
             day: 'numeric' 
         }) : '';
     
+    // Generate unique ID for this reflection
+    const frameId = `frame-${data.id || generateUniqueId()}`;
+    
+    // Regular card HTML with Share button
     card.innerHTML = `
         <h3 class="reflection-title">${escapeHtml(data.title)}</h3>
         ${date ? `<p class="reflection-date">${date}</p>` : ''}
-        <p class="reflection-body">${escapeHtml(data.content)}</p>
+        <div class="reflection-body">${formatContent(data.content)}</div>
+        <button class="share-btn" onclick="copyReflectionAsImage('${frameId}')">
+            📷 Share as Image
+        </button>
     `;
     
+    // Create hidden frame for image generation
+    const frame = createReflectionFrame(data, frameId);
+    document.body.appendChild(frame);
+    
     return card;
+}
+
+function createReflectionFrame(data, frameId) {
+    const frame = document.createElement('div');
+    frame.className = 'reflection-frame';
+    frame.id = frameId;
+    
+    frame.innerHTML = `
+        <div class="glyph">✧</div>
+        <h2>${escapeHtml(data.title)}</h2>
+        <p>${escapeHtml(data.content)}</p>
+        <div class="footer-tag">mindstream</div>
+    `;
+    
+    return frame;
+}
+
+function formatContent(content) {
+    // Convert line breaks to paragraphs for better readability
+    return content
+        .split('\n')
+        .filter(line => line.trim())
+        .map(line => `<p>${escapeHtml(line)}</p>`)
+        .join('');
 }
 
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+}
+
+function generateUniqueId() {
+    return 'refl-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
 }
