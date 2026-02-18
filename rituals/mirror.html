@@ -298,6 +298,26 @@
       color: var(--accent);
     }
 
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--text-soft);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: var(--accent);
+    }
+
+    .footer-navigation {
+      text-align: center;
+      margin-top: 12px;
+    }
+
     .error-message {
       color: #ef4444;
       font-size: 12px;
@@ -355,6 +375,12 @@
 
       <div class="footer-note">
         Your words become symbols. Your symbols become meaning. <span>mindefy.online</span>
+      </div>
+
+      <div class="footer-navigation">
+        <a href="/rituals.html" class="back-link">
+          ← Back to Rituals
+        </a>
       </div>
     </section>
   </main>
