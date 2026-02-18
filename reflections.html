@@ -9,6 +9,115 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
+    <!-- ============================
+         SHARE AS IMAGE STYLES
+         ============================ -->
+    <style>
+      /* Reflection Frame for Image Generation (hidden) */
+      .reflection-frame {
+        background: radial-gradient(circle at 50% 40%,
+          rgba(255,255,255,0.08),
+          rgba(0,0,0,0.65)
+        );
+        padding: 32px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.12);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+        color: #f2f2f2;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        max-width: 600px;
+        margin: 0 auto;
+        position: absolute;
+        left: -9999px;
+        top: -9999px;
+        pointer-events: none;
+      }
+
+      .reflection-frame .glyph {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        opacity: 0.15;
+        font-size: 22px;
+        letter-spacing: 2px;
+      }
+
+      .reflection-frame h2 {
+        margin-bottom: 16px;
+        font-weight: 400;
+        letter-spacing: 1px;
+        color: #f2f2f2;
+        font-size: 1.8rem;
+      }
+
+      .reflection-frame p {
+        line-height: 1.6;
+        opacity: 0.95;
+        color: #f2f2f2;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+      .reflection-frame .footer-tag {
+        margin-top: 28px;
+        font-size: 12px;
+        opacity: 0.4;
+        text-align: center;
+        letter-spacing: 1px;
+      }
+
+      /* Share Button */
+      .share-btn {
+        margin-top: 12px;
+        background: rgba(122, 155, 118, 0.1);
+        border: 1px solid rgba(122, 155, 118, 0.3);
+        padding: 8px 16px;
+        border-radius: 50px;
+        color: var(--grove-green);
+        cursor: pointer;
+        font-size: 14px;
+        font-family: 'Lato', sans-serif;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: inline-block;
+      }
+
+      .share-btn:hover {
+        background: var(--grove-green);
+        color: white;
+        border-color: var(--grove-green);
+        transform: translateY(-2px);
+      }
+
+      /* Toast Notification */
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(122, 155, 118, 0.95);
+        backdrop-filter: blur(6px);
+        padding: 12px 24px;
+        border-radius: 50px;
+        color: #fff;
+        font-size: 14px;
+        font-family: 'Lato', sans-serif;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      }
+
+      /* Reflection Card Date Styling */
+      .reflection-date {
+        font-size: 0.9rem;
+        color: var(--stone-gray);
+        font-style: italic;
+        margin-bottom: 0.5rem;
+        opacity: 0.8;
+      }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -86,12 +195,72 @@
                 <span>•</span>
                 <a href="guides.html">Guides</a>
                 <span>•</span>
-                <a href="mailto:hello@mindefy.online">Contact</a>
+                <a href="/cdn-cgi/l/email-protection#80e8e5ececefc0ede9eee4e5e6f9aeefeeece9eee5">Contact</a>
             </nav>
             <p class="footer-copyright">© 2025 Mindstream. A commons, tended by all who practice.</p>
             <div class="footer-lantern">🕯️</div>
         </div>
     </footer>
+
+    <!-- ============================
+         SHARE AS IMAGE FUNCTIONALITY
+         ============================ -->
+    
+    <!-- html2canvas Library -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <!-- Share-as-Image Logic -->
+    <script>
+      async function copyReflectionAsImage(frameId) {
+        const card = document.getElementById(frameId);
+        
+        if (!card) {
+          console.error('Frame not found:', frameId);
+          showToast("⚠️ Unable to generate image");
+          return;
+        }
+
+        try {
+          const canvas = await html2canvas(card, {
+            backgroundColor: null,
+            scale: 2,
+            logging: false,
+            useCORS: true
+          });
+
+          canvas.toBlob(async (blob) => {
+            try {
+              await navigator.clipboard.write([
+                new ClipboardItem({ "image/png": blob })
+              ]);
+              showToast("✨ Reflection copied as image");
+            } catch (err) {
+              console.error('Clipboard error:', err);
+              showToast("⚠️ Unable to copy image. Try a different browser.");
+            }
+          }, 'image/png');
+        } catch (error) {
+          console.error('Image generation error:', error);
+          showToast("⚠️ Image generation failed");
+        }
+      }
+
+      function showToast(message) {
+        const toast = document.createElement("div");
+        toast.className = "toast";
+        toast.innerText = message;
+        document.body.appendChild(toast);
+        
+        requestAnimationFrame(() => {
+          toast.style.opacity = "1";
+        });
+        
+        setTimeout(() => {
+          toast.style.opacity = "0";
+          setTimeout(() => toast.remove(), 400);
+        }, 2500);
+      }
+    </script>
 
     <script src="script.js"></script>
     <script type="module" src="reflections-firebase.js"></script>
