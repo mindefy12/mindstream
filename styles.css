@@ -2150,3 +2150,70 @@ a:hover {
         box-shadow: none;
     }
 }
+/* ===================================
+   MINDSTREAM - TEXT VISIBILITY FIXES
+   =================================== */
+
+/* === JUST PAUSE BREATHING MODAL - DARKER TEXT === */
+.pause-text {
+    font-family: var(--font-serif);
+    font-size: 2.5rem; /* Increased from 2rem */
+    color: #ffffff !important; /* Pure white instead of amber */
+    margin-bottom: 1rem;
+    font-style: italic;
+    font-weight: 600 !important; /* Bolder */
+}
+
+.pause-timer {
+    font-size: 3.5rem !important; /* Increased from 3rem */
+    font-weight: 400 !important; /* Bolder from 300 */
+    color: #ffffff;
+    margin-bottom: 2rem;
+    font-family: var(--font-serif);
+}
+
+.pause-instruction {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin-top: 1rem;
+    font-weight: 500;
+}
+
+/* === RITUALS PAGE HERO - DARKER TEXT === */
+.rituals-hero-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    color: #ffffff !important;
+    margin-bottom: var(--space-sm);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important; /* Stronger shadow */
+    font-weight: 700 !important; /* Bolder */
+}
+
+.rituals-hero-subtitle {
+    font-size: 1.3rem !important;
+    color: rgba(255, 255, 255, 1) !important; /* Full opacity */
+    font-style: italic;
+    max-width: 600px;
+    margin: 0 auto;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2) !important;
+    font-weight: 500 !important;
+}
+
+/* === MOBILE ADJUSTMENTS === */
+@media (max-width: 768px) {
+    .pause-text {
+        font-size: 2rem;
+    }
+    
+    .pause-timer {
+        font-size: 3rem;
+    }
+    
+    .pause-instruction {
+        font-size: 1.1rem;
+    }
+    
+    .rituals-hero-subtitle {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
+}
