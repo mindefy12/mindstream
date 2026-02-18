@@ -350,9 +350,6 @@
         <button id="copyBtn" class="ghost-btn" disabled>
           ⧉ Copy
         </button>
-        <!-- Save / Release can be wired later -->
-        <!-- <button class="ghost-btn" disabled>Save</button>
-        <button class="ghost-btn" disabled>Release</button> -->
       </div>
       <div id="copyStatus" class="copy-status"></div>
 
@@ -372,14 +369,13 @@
     const errorMessage = document.getElementById("errorMessage");
 
     async function callMetaphorEngine(userReflection) {
-      // Call your Netlify Function
-      const response = await fetch("/.netlify/functions/mirror-metaphor", {
+      const response = await fetch("/.netlify/functions/mirror-v2", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          reflection: userReflection
+          userInput: userReflection
         })
       });
 
@@ -405,7 +401,6 @@
     function showMetaphor(text) {
       metaphorContainer.classList.remove("revealed");
       metaphorTextEl.textContent = text;
-      // Force reflow so animation restarts
       void metaphorContainer.offsetWidth;
       metaphorContainer.classList.add("revealed");
       copyBtn.disabled = false;
@@ -450,7 +445,6 @@ mindefy.online/mirror`;
         console.error(err);
         errorMessage.textContent = "Unable to reach the mirror right now. Please try again in a moment.";
         
-        // Show fallback poetic error
         metaphorTextEl.textContent =
           "Like a signal lost in the fog — something in you is trying to speak, but the line is noisy. Try again in a moment.";
         metaphorContainer.classList.add("revealed");
@@ -469,7 +463,6 @@ mindefy.online/mirror`;
         await navigator.clipboard.writeText(block);
         copyStatus.textContent = "Copied. The mirror travels with you.";
         
-        // Clear status after 3 seconds
         setTimeout(() => {
           copyStatus.textContent = "";
         }, 3000);
@@ -479,7 +472,6 @@ mindefy.online/mirror`;
       }
     });
 
-    // Allow Enter key to submit (with Shift+Enter for newlines)
     reflectionInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
