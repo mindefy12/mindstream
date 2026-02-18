@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirror Test - V2</title>
+    <style>
+        body {
+            font-family: 'Crimson Pro', Georgia, serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            color: #f5e8d0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        .subtitle {
+            text-align: center;
+            opacity: 0.7;
+            margin-bottom: 30px;
+        }
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #f5e8d0;
+            padding: 15px;
+            font-family: inherit;
+            font-size: 16px;
+            resize: vertical;
+        }
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #c9a962 0%, #d4b66e 100%);
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            color: #1a1a2e;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            min-height: 60px;
+            line-height: 1.8;
+            font-size: 18px;
+            font-style: italic;
+            display: none;
+        }
+        #result.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .error {
+            color: #ff6b6b;
+        }
+        .loading {
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✨ Mirror Test V2</h1>
+        <p class="subtitle">Testing the new function</p>
+        
+        <textarea id="input" placeholder="What's on your mind? (e.g., I feel scattered and lost...)"></textarea>
+        
+        <button id="revealBtn" onclick="reveal()">Reveal</button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function reveal() {
+            const input = document.getElementById('input').value.trim();
+            const btn = document.getElementById('revealBtn');
+            const result = document.getElementById('result');
+            
+            if (!input || input.length < 5) {
+                result.className = 'show error';
+                result.textContent = 'Please write at least a few words...';
+                return;
+            }
+            
+            btn.disabled = true;
+            btn.textContent = 'Thinking...';
+            result.className = 'show loading';
+            result.textContent = 'Generating your metaphor...';
+            
+            try {
+                const response = await fetch('/.netlify/functions/mirror-v2', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userInput: input })
+                });
+                
+                const data = await response.json();
+                
+                if (data.metaphor) {
+                    result.className = 'show';
+                    result.textContent = `"${data.metaphor}"`;
+                } else {
+                    result.className = 'show error';
+                    result.textContent = 'Error: ' + (data.error || 'Unknown error') + (data.debug ? ' (' + data.debug + ')' : '');
+                }
+                
+            } catch (error) {
+                result.className = 'show error';
+                result.textContent = 'Network error: ' + error.message;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Reveal';
+            }
+        }
+        
+        // Enter key support
+        document.getElementById('input').addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'Enter') {
+                reveal();
+            }
+        });
+    </script>
+</body>
+</html>
